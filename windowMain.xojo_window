@@ -9,7 +9,7 @@ Begin Window windowMain
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   696
+   Height          =   417
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -119,7 +119,7 @@ Begin Window windowMain
       GridLinesVertical=   3
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   633
+      Height          =   354
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -201,10 +201,10 @@ End
 	#tag Method, Flags = &h21
 		Private Sub LoadLB(content as Xojo.Core.MemoryBlock)
 		  lbRSS.DeleteAllRows
+		  lbRSS.DefaultRowHeight = -1
 		  
 		  Dim body As Text = Xojo.Core.TextEncoding.UTF8.ConvertDataToText( Content )
 		  Dim xbody As New XmlDocument(body)
-		  //xbody.LoadXml( body )
 		  
 		  Dim nodes As XmlNodeList
 		  nodes = xbody.Xql( "//item" )
@@ -223,7 +223,6 @@ End
 		    lbRSS.AddRow( title, description )
 		    lbRSS.RowTag( lbRSS.LastIndex ) = link
 		  Next
-		  
 		End Sub
 	#tag EndMethod
 
@@ -245,6 +244,11 @@ End
 		  End If
 		End Sub
 	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		minRowHeight As Integer
+	#tag EndProperty
 
 
 #tag EndWindowCode
@@ -274,13 +278,6 @@ End
 	#tag Event
 		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
 		  ShowURL( lbRSS.RowTag( row ) )
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
-		  Dim value As String = Me.Cell(row, column)
-		  g.DrawString(value, 5, 12, Me.Column(column).WidthActual - 10)
-		  Return True
 		End Function
 	#tag EndEvent
 #tag EndEvents
