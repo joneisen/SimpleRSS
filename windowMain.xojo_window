@@ -115,8 +115,8 @@ Begin Window windowMain
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      GridLinesHorizontal=   0
-      GridLinesVertical=   0
+      GridLinesHorizontal=   3
+      GridLinesVertical=   3
       HasHeading      =   True
       HeadingIndex    =   -1
       Height          =   633
@@ -219,6 +219,7 @@ End
 		    //To strip out html elements from description
 		    Dim a() As Text = description.ToText.Split( "<" )
 		    description = a( 0 )
+		    description = app.ReplaceUnicodeCharacters( description )
 		    lbRSS.AddRow( title, description )
 		    lbRSS.RowTag( lbRSS.LastIndex ) = link
 		  Next
@@ -273,6 +274,13 @@ End
 	#tag Event
 		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
 		  ShowURL( lbRSS.RowTag( row ) )
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  Dim value As String = Me.Cell(row, column)
+		  g.DrawString(value, 5, 12, Me.Column(column).WidthActual - 10)
+		  Return True
 		End Function
 	#tag EndEvent
 #tag EndEvents

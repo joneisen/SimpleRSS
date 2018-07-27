@@ -11,6 +11,21 @@ Inherits Application
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function ReplaceUnicodeCharacters(Content as String) As String
+		  While Content.InStr( "&#" ) > 0
+		    Dim start As Integer = Content.InStr( "&#" )
+		    Dim stop As Integer = Content.InStr( start, ";" )
+		    Dim rlen As Integer = stop - start + 1
+		    Dim ulen As Integer = stop - start - 2
+		    Dim rep As String = Content.Mid( start, rlen )
+		    Dim ucode As String = Content.Mid( start + 2, ulen )
+		    Content = Content.ReplaceAll( rep, Text.FromUnicodeCodepoint( ucode.Val ) )
+		  Wend
+		  Return Content
+		End Function
+	#tag EndMethod
+
 
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
