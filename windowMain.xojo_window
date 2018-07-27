@@ -233,7 +233,15 @@ End
 		    Return
 		  End If
 		  
-		  mySocket.Send( "GET", fieldURL.Text.ToText )
+		  If app.isValidURL( fieldURL.Text ) Then
+		    
+		    mySocket.Send( "GET", fieldURL.Text.ToText )
+		    
+		  Else
+		    
+		    MsgBox( "You must enter a valid url" )
+		    Return
+		  End If
 		End Sub
 	#tag EndMethod
 
