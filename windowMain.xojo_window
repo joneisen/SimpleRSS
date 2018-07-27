@@ -9,7 +9,7 @@ Begin Window windowMain
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   696
+   Height          =   417
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -115,11 +115,11 @@ Begin Window windowMain
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      GridLinesHorizontal=   0
-      GridLinesVertical=   0
+      GridLinesHorizontal=   3
+      GridLinesVertical=   3
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   633
+      Height          =   354
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -201,10 +201,10 @@ End
 	#tag Method, Flags = &h21
 		Private Sub LoadLB(content as Xojo.Core.MemoryBlock)
 		  lbRSS.DeleteAllRows
+		  lbRSS.DefaultRowHeight = -1
 		  
 		  Dim body As Text = Xojo.Core.TextEncoding.UTF8.ConvertDataToText( Content )
 		  Dim xbody As New XmlDocument(body)
-		  //xbody.LoadXml( body )
 		  
 		  Dim nodes As XmlNodeList
 		  nodes = xbody.Xql( "//item" )
@@ -219,10 +219,10 @@ End
 		    //To strip out html elements from description
 		    Dim a() As Text = description.ToText.Split( "<" )
 		    description = a( 0 )
+		    description = app.ReplaceUnicodeCharacters( description )
 		    lbRSS.AddRow( title, description )
 		    lbRSS.RowTag( lbRSS.LastIndex ) = link
 		  Next
-		  
 		End Sub
 	#tag EndMethod
 
@@ -244,6 +244,11 @@ End
 		  End If
 		End Sub
 	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		minRowHeight As Integer
+	#tag EndProperty
 
 
 #tag EndWindowCode
