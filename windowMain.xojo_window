@@ -515,4 +515,9 @@ End
 		Type="Boolean"
 		EditorType="Boolean"
 	#tag EndViewProperty
+	#tag ViewProperty
+		Name="minRowHeight"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
 #tag EndViewBehavior
