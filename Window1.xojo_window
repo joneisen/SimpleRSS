@@ -9,7 +9,7 @@ Begin Window Window1
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   800
+   Height          =   696
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -62,7 +62,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   72
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -95,7 +95,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   73
+      Top             =   21
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -124,7 +124,7 @@ Begin Window Window1
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Header	Value"
+      InitialValue    =   "Title	Description"
       Italic          =   False
       Left            =   0
       LockBottom      =   False
@@ -144,7 +144,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   118
+      Top             =   63
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -182,7 +182,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   73
+      Top             =   21
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -217,9 +217,9 @@ End
 		    //To strip out html elements from description
 		    Dim a() As Text = description.ToText.Split( "<" )
 		    description = a( 0 )
-		    lbRSS.AddRow(
+		    lbRSS.AddRow( title, description )
+		    lbRSS.RowTag( lbRSS.LastIndex ) = link
 		  Next
-		  Break
 		  
 		End Sub
 	#tag EndMethod
