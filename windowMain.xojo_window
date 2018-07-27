@@ -1,5 +1,5 @@
 #tag Window
-Begin Window Window1
+Begin Window windowMain
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -23,7 +23,7 @@ Begin Window Window1
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Untitled"
+   Title           =   "Simple RSS Viewer"
    Visible         =   True
    Width           =   1000
    Begin TextField fieldURL
@@ -54,7 +54,7 @@ Begin Window Window1
       Password        =   False
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   3
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -89,7 +89,7 @@ Begin Window Window1
       LockRight       =   False
       LockTop         =   True
       Scope           =   2
-      TabIndex        =   4
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -138,7 +138,7 @@ Begin Window Window1
       ScrollBarVertical=   True
       SelectionType   =   0
       ShowDropIndicator=   False
-      TabIndex        =   7
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -173,9 +173,9 @@ Begin Window Window1
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   8
+      TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   False
       Text            =   "RSS URL:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -200,6 +200,8 @@ End
 #tag WindowCode
 	#tag Method, Flags = &h21
 		Private Sub LoadLB(content as Xojo.Core.MemoryBlock)
+		  lbRSS.DeleteAllRows
+		  
 		  Dim body As Text = Xojo.Core.TextEncoding.UTF8.ConvertDataToText( Content )
 		  Dim xbody As New XmlDocument(body)
 		  //xbody.LoadXml( body )
@@ -238,11 +240,32 @@ End
 
 #tag EndWindowCode
 
+#tag Events fieldURL
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  Select Case key.Asc
+		  Case 3
+		    SendRequest
+		  Case 10
+		    SendRequest
+		  Case 13
+		    SendRequest
+		  End Select
+		End Function
+	#tag EndEvent
+#tag EndEvents
 #tag Events buttonGet
 	#tag Event
 		Sub Action()
 		  SendRequest
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events lbRSS
+	#tag Event
+		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  ShowURL( lbRSS.RowTag( row ) )
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events mySocket
